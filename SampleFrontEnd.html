@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Information Extractor</title>
+    <style>
+        #imagePreview {
+            max-width: 100%;
+            max-height: 300px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Image Information Extractor</h1>
+
+    <form id="imageForm" enctype="multipart/form-data">
+        <label for="imageInput">Choose an image:</label>
+        <input type="file" id="imageInput" accept="image/*" required>
+        <button type="button" onclick="uploadImage()">Upload</button>
+    </form>
+
+    <div id="imagePreview"></div>
+    <div id="imageInfo"></div>
+
+    <script>
+        function uploadImage() {
+            var input = document.getElementById('imageInput');
+            var preview = document.getElementById('imagePreview');
+            var info = document.getElementById('imageInfo');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function () {
+                        preview.innerHTML = '<img src="' + e.target.result + '" alt="Uploaded Image">';
+                        info.innerHTML = '<p>Image Width: ' + img.width + ' pixels</p>' +
+                                         '<p>Image Height: ' + img.height + ' pixels</p>';
+                    };
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+</body>
+</html>
