@@ -1,0 +1,15 @@
+!ngrok authtoken 2QasvW27baI358AXmwVGAcDrzEp_3QaJrrwXNiXfgC9vBKMTy
+from flask import Flask, render_template, request
+from pyngrok import ngrok
+templates_folder = "/content/drive/MyDrive/Colab Notebooks/templates"
+app = Flask(__name__, template_folder=templates_folder)
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/upload', methods=['POST'])
+#making local host on pynrok
+if __name__ == '__main__':
+    ngrok_tunnel = ngrok.connect(5000)
+    print('Public URL:', ngrok_tunnel.public_url)
+    app.run()
